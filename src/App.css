@@ -1,38 +1,129 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans+Caption:wght@700&display=swap');
+.homePgWrap{
+  height: 100vh;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  color: #fff;
 }
 
-.App-link {
-  color: #61dafb;
+
+.form{
+  
+  background-color: #282a36;
+  padding: 20px;
+  border-radius: 10px;
+  width: 340px;
+  max-width: 90%;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+
+.form img{
+  width: 80px;
+  height: 50px;
+}
+
+
+.inputs{
+  display: flex;
+  flex-direction: column;
+}
+
+
+
+
+.inpBox{
+  letter-spacing: 0.6px;
+  position: relative;
+  padding: 10px;
+  border-radius: 5px;
+  outline: none;
+  border: none;
+  margin-bottom: 12px;
+  background: #d9efe5;
+  font-size: 12px;
+  font-family: 'PT Sans Caption', sans-serif;
+  color:#282a36;
+}
+
+
+
+.logo{  display: flex;
+}
+
+
+.codeflow{
+  margin: 5px 0 0 5px;
+  font-size: 32px;
+  font-weight:500;
+  letter-spacing: 1.5px;
+  color: rgb(34, 62, 106);
+  -webkit-text-fill-color:#008000 ;
+  -webkit-text-stroke-width: 1.2px;
+}
+
+
+.ide{
+  color: rgb(203, 214, 208);
+  font-weight: 350;
+  margin: 7px 0 0 0;
+  /* -webkit-text-fill-color:#008000 ; */
+}
+
+
+.msg{
+  font-weight:500;
+  letter-spacing: 0.8px;
+  /* color: #34a25e; */
+}
+
+
+.btn{
+  border: none;
+  padding: 8px 0px 8px 0px;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+
+.joinBtn{
+background-color:#00805a ;
+width: 100px;
+margin-left: auto;
+font-size: 17px;
+/* font-weight: 500; */
+letter-spacing: 0.7px;
+}
+
+.joinBtn:hover{
+  background-color:#34a25e;
+  /* color:#b9d2c8 ; */
+}
+
+
+.info{
+  margin: 0 auto;
+  margin-top: 15px;
+}
+
+.newRoom{
+  color:#00805a;
+  text-decoration: none;
+  transition: all 0.3s ease-in-out;
+}
+
+.newRoom:hover{
+  color:#34a25e;
+}
+
+
+.tost_success{
+  background: #00805a;
+  color: black;
+  font-size: 16px;
+  width: 18vw;
+  padding: 20px 10px;
+
 }
