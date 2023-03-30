@@ -3,6 +3,7 @@ import {useNavigate} from 'react-router-dom'
 import {v4} from 'uuid'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import multiavatar from '@multiavatar/multiavatar';
 
 const Home = () => {
 const navigate=useNavigate();
@@ -63,6 +64,36 @@ const joinOnEnter=(e)=>{
 }
 
 
+
+
+//avatar
+
+
+
+
+
+function updateAvatar(name){
+    let divSvg=document.getElementById('divSvg');
+    if(name.length){
+        var svg=multiavatar(name);
+        divSvg.innerHTML=svg;
+        console.log(svg);
+    }
+    else{
+        divSvg.innerHTML='';
+    }
+}
+
+
+window.addEventListener('DOMContentLoaded',()=>{
+    let txtName=document.getElementById('textt');
+    txtName.addEventListener('keyup',(e)=>{
+        updateAvatar(e.target.value);
+    });
+});
+
+
+
     return (
         <div className='homePgWrap'>
             <div className='box'>
@@ -75,8 +106,9 @@ const joinOnEnter=(e)=>{
                         {/* <h4 className='ide'>A real time IDE</h4> */}
                     </div>
                     <h4 className='msg'>Paste invitation ID</h4>
+                    {/* <div id='divSvg' style={{width:"100px",height:"100px"}}></div> */}
                     <div className='inputs'>
-                        <input type="text" placeholder='USER NAME' value={userName} onChange={(e)=>setuserName(e.target.value)} className='inpBox' onKeyUp={joinOnEnter} />
+                        <input type="text" placeholder='USER NAME' value={userName} onChange={(e)=>setuserName(e.target.value)} className='inpBox' id='textt' onKeyUp={joinOnEnter} />
                         <input type="text" placeholder='ID' value={userid} onChange={(e)=>setuserid(e.target.value)} className='inpBox' onKeyUp={joinOnEnter} />
                         <button className='btn joinBtn' onClick={join}>Join</button>
                         <span className='info' >

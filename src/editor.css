@@ -1,0 +1,90 @@
+.wrapper{
+  display: grid;
+  grid-template-columns: 190px 1fr;
+  color: #fff;
+  height: 100vh;
+}
+
+.left_wrapper{
+  display:flex;
+  flex-direction: column;
+    background-color: #282a36;
+    padding: 15px 10px;
+}
+
+.left_inner{
+  flex:1;
+}
+
+
+.clients{
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  word-break: break-all;
+}
+.client_wrapper{
+  display: flex;
+  /* flex-direction: column; */
+  align-items: center;
+
+}
+
+.username{
+  margin: 0px 0px 0px 8px;
+  font-size: 15px;
+  letter-spacing: 0.2px;
+font-weight: 550;
+}
+
+.logo{
+  border-bottom: 1px solid #424242;
+  padding-bottom: 10px;
+}
+
+.logo img{
+    width: 43px;
+    height: 27px;
+  }
+
+  .codeflow{
+    margin: 1px 0 0 3.5px;
+    font-size: 22px;
+    font-weight:400;
+    letter-spacing: 1px;
+    color: rgb(34, 62, 106);
+    -webkit-text-fill-color:#008000 ;
+    -webkit-text-stroke-width: 0.7px;
+  }
+
+  .left_outer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border-top: 1px solid #424242;
+  padding-top: 10px;
+  }
+
+ .cpybtn{
+  background-color:#00805a ;
+width: 120px;
+font-size: 13px;
+letter-spacing: 0.7px;
+
+ }
+
+ .cpybtn:hover{
+  background-color:#34a25e;
+  /* color:#b9d2c8 ; */
+}
+
+  .leavebtn{
+    background-color: rgb(141, 46, 33);
+    width: 120px;
+    margin-top: 14px;
+  }
+  .leavebtn:hover{
+    background-color:rgb(219, 76, 76);
+  }
