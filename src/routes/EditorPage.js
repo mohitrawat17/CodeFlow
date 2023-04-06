@@ -1,19 +1,82 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useState } from 'react'
 import '../../src/editor.css'
 import Client from '../components/Client'
 import MainEditor from '../components/MainEditor'
+import { initSocket } from '../socket'
+import ACTIONS from '../Actions'
+import { Navigate, useLocation, useNavigate, useParams } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 const EditorPage = () => {
    
-   const [Clients,setClients]=useState([
-    {socketId:1,userName:'Mohit Rawat'},
-    {socketId:2,userName:'Archit Dhyani'},
-    {socketId:2,userName:'Manas Kandpal'},
-    {socketId:2,userName:'Ashish Bora'}
-    
+  const [clients,setClients]=useState([
     
    ])
+
+ const reactNavigator=useNavigate();
+  const socketRef=useRef(null);
+  const location=useLocation();
+ const {editorId}=useParams();
+
+
+  useEffect(()=>{
+    const init=async ()=>{
+      socketRef.current=await initSocket();
+
+      socketRef.current.on('connect_error',(err)=>handleErrors(err));
+      socketRef.current.on('connect_failed',(err)=>handleErrors(err));  
+      
+      function handleErrors(e){
+        console.log('socket error',e);
+        toast.error('socket connection failed,try again later !');
+        reactNavigator('/');
+      }
+
+
+      socketRef.current.emit(ACTIONS.JOIN,{
+        editorId,
+        username:location.state?.userName,
+
+      });
+
+      socketRef.current.on(ACTIONS.JOINED,({clients,username,socketId})=>{
+              if(username!==location.state?.username){
+                toast.success(`${username} joined`);
+                console.log(`${username} joined`);
+              }
+              setClients(clients);
+      })
+
+
+      //disconnection
+      socketRef.current.on(ACTIONS.DISCONNECTED,({socketId,username})=>{
+        toast.success(`${username} left.`);
+        setClients((prev)=>{
+          return prev.filter((c)=>c.socketId!==socketId);
+        });
+      })
+    };
+    init();
+    return ()=>{
+      
+      socketRef.current.off(ACTIONS.JOINED);
+      socketRef.current.off(ACTIONS.DISCONNECTED);
+      socketRef.current.disconnect();
+      socketRef.current=null;
+    }
+  },[]);
+
+
+if(!location.state){
+ return <Navigate to="/"/>
+}
+
+
+
+
+
+  
 
   return (
     <>
@@ -32,8 +95,8 @@ const EditorPage = () => {
 
             <div className='clients'>
               {
-                Clients.map((client)=>(
-                  <Client key={client.socketId} username={client.userName}/>
+                clients.map((client)=>(
+                  <Client key={client.socketId} username={client.username}/>
                 )) 
               }
             </div>

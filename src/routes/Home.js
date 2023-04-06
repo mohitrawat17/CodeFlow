@@ -49,6 +49,7 @@ const join=()=>{
          });
               return;
     }
+    
     navigate(`/editor/${userid}`,{
         state: {
             userName,
