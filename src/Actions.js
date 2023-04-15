@@ -1,3 +1,4 @@
+// name of events to listen in server side
 const ACTIONS = {
     JOIN: 'join',
     JOINED: 'joined',

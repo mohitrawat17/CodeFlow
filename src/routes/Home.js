@@ -22,7 +22,7 @@ const navigate=useNavigate();
      toast.success('Invite code created', {
         className:"tost_success",
         position: "top-right",
-        autoClose: 2500,
+        autoClose: 1500,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -39,7 +39,7 @@ const join=()=>{
         toast.error('Please fill in all fields',{
             className:"tost_success",
             position: "top-right",
-            autoClose: 2500,
+            autoClose: 1500,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
@@ -71,8 +71,6 @@ const joinOnEnter=(e)=>{
 
 
 
-
-
 function updateAvatar(name){
     let divSvg=document.getElementById('divSvg');
     if(name.length){
@@ -92,9 +90,6 @@ window.addEventListener('DOMContentLoaded',()=>{
         updateAvatar(e.target.value);
     });
 });
-
-
-
     return (
         <div className='homePgWrap'>
             <div className='box'>

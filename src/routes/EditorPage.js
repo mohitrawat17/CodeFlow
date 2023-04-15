@@ -2,81 +2,160 @@ import React, { useEffect, useRef } from 'react'
 import { useState } from 'react'
 import '../../src/editor.css'
 import Client from '../components/Client'
+import Bot from '../components/Bot'
+import Terminal from '../components/Terminal'
 import MainEditor from '../components/MainEditor'
-import { initSocket } from '../socket'
+import { initSocket } from '../components/socket.js'
 import ACTIONS from '../Actions'
 import { Navigate, useLocation, useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
 const EditorPage = () => {
-   
-  const [clients,setClients]=useState([
-    
-   ])
+  console.log("start");///////////////////////////////////////////
+  const [clients, setClients] = useState([
 
- const reactNavigator=useNavigate();
-  const socketRef=useRef(null);
-  const location=useLocation();
- const {editorId}=useParams();
+  ])
+
+  const reactNavigator = useNavigate();
+  const socketRef = useRef(null);
+  const codeRef = useRef(null);
+  const location = useLocation();
+  const { editorId } = useParams();
 
 
-  useEffect(()=>{
-    const init=async ()=>{
-      socketRef.current=await initSocket();
+  useEffect(() => {
+    const init = async () => {
+      socketRef.current = await initSocket();
 
-      socketRef.current.on('connect_error',(err)=>handleErrors(err));
-      socketRef.current.on('connect_failed',(err)=>handleErrors(err));  
-      
-      function handleErrors(e){
-        console.log('socket error',e);
-        toast.error('socket connection failed,try again later !');
+      socketRef.current.on('connect_error', (err) => handleErrors(err));
+      socketRef.current.on('connect_failed', (err) => handleErrors(err));
+
+      function handleErrors(e) {
+        console.log('socket error', e);
+        toast.error('socket connection failed,try again later !', {
+          position: "top-right",
+          autoClose: 1500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
         reactNavigator('/');
       }
 
 
-      socketRef.current.emit(ACTIONS.JOIN,{
+      socketRef.current.emit(ACTIONS.JOIN, {
         editorId,
-        username:location.state?.userName,
+        username: location.state?.userName,
 
       });
 
-      socketRef.current.on(ACTIONS.JOINED,({clients,username,socketId})=>{
-              if(username!==location.state?.username){
-                toast.success(`${username} joined`);
-                console.log(`${username} joined`);
-              }
-              setClients(clients);
-      })
 
+      // joining event listen
+      socketRef.current.on(ACTIONS.JOINED, ({ clients, username, socketId }) => {
+        if (username !== location.state?.userName) {
+          toast.success(`${username} joined`, {
+            position: "top-right",
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          });
+          // console.log(`${username} joined`);
+          
+        }
+        setClients(clients);
+        console.log("debug1");
+
+        socketRef.current.emit(ACTIONS.SYNC_CODE, {
+          code: codeRef.current,
+          socketId,
+        });
+      });
 
       //disconnection
-      socketRef.current.on(ACTIONS.DISCONNECTED,({socketId,username})=>{
-        toast.success(`${username} left.`);
-        setClients((prev)=>{
-          return prev.filter((c)=>c.socketId!==socketId);
+      socketRef.current.on(ACTIONS.DISCONNECTED, ({ socketId, username }) => {
+        toast.warn(`${username} left.`, {
+          position: "top-right",
+          autoClose: 1500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
         });
-      })
+        setClients((prev) => {
+          return prev.filter((c) => c.socketId !== socketId);
+        });
+      });
     };
     init();
-    return ()=>{
-      
+    return () => {
+      // socketRef.current.disconnect();
       socketRef.current.off(ACTIONS.JOINED);
       socketRef.current.off(ACTIONS.DISCONNECTED);
-      socketRef.current.disconnect();
-      socketRef.current=null;
+      // socketRef.current.off(ACTIONS.SYNC_CODE);
+      // socketRef.current.off(ACTIONS.JOIN);
     }
-  },[]);
-
-
-if(!location.state){
- return <Navigate to="/"/>
-}
+  }, []);
 
 
 
+  console.log("debug2");///////////////////////////////////////////////////
+
+  //to copy room id in clipboard
+  const copyId = async () => {
+    try {
+      await navigator.clipboard.writeText(editorId);
+      toast.success('Room id has been copied', {
+        position: "top-right",
+        autoClose: 1500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+    }
+    catch (e) {
+      toast.error('failed to copy room id ! ', {
+        position: "top-right",
+        autoClose: 1500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+      console.log(e);
+    }
+  }
 
 
-  
+
+
+
+
+
+  const exitRoom = () => {
+    return reactNavigator('/');
+  }
+
+
+  if (!location.state) {
+    return <Navigate to="/" />
+  }
+
+
+  console.log("main page");///////////////////////////////////////
 
   return (
     <>
@@ -95,17 +174,17 @@ if(!location.state){
 
             <div className='clients'>
               {
-                clients.map((client)=>(
-                  <Client key={client.socketId} username={client.username}/>
-                )) 
+                clients.map((client) => (
+                  <Client key={client.socketId} username={client.username} />
+                ))
               }
             </div>
 
           </div>
           <div className='left_outer'>
-          <button className='btn cpybtn'>COPY INVITE ID</button>
-            <button className='btn leavebtn'>EXIT</button>
-            </div>
+            <button className='btn cpybtn' onClick={copyId}>COPY ROOM ID</button>
+            <button className='btn leavebtn' onClick={exitRoom}>EXIT</button>
+          </div>
         </div>
 
 
@@ -119,8 +198,26 @@ if(!location.state){
 
 
         <div className='right_wrapper'>
-          <MainEditor/>
+          <div className='editorSpace'>
+            <MainEditor socketRef={socketRef} editorId={editorId} codeChange={(code) => {
+              codeRef.current = code;
+            }} />
+
+            <Terminal pycode={codeRef.current} />
+
+
+          </div>
+
+
+          <div className='botSpace'>
+            <Bot />
+
+          </div>
+
+
         </div>
+
+
       </div>
     </>
   )
