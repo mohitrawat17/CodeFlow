@@ -13,7 +13,7 @@ const Terminal = ({pycode}) => {
   //   method: 'POST',
   //   headers: {
   //     'content-type': 'application/json',
-  //     'X-RapidAPI-Key': '86f5db25e9msha4d81f0c379916cp1616c1jsn412f3334967d',
+  //     'X-RapidAPI-Key': process.env.REACT_API_KEY,
   //     'X-RapidAPI-Host': 'online-code-compiler.p.rapidapi.com'
   //   },
   //   body: `{"language":"python3","version":"latest","code":"${pycode}","input":null}`

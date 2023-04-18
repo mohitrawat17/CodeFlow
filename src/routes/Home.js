@@ -8,7 +8,6 @@ import multiavatar from '@multiavatar/multiavatar';
 const Home = () => {
 const navigate=useNavigate();
 
-
     const [userid,setuserid]=useState('')
     const [userName,setuserName]=useState('')
 

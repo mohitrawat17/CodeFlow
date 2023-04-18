@@ -15,7 +15,6 @@ const EditorPage = () => {
   const [clients, setClients] = useState([
 
   ])
-
   const reactNavigator = useNavigate();
   const socketRef = useRef(null);
   const codeRef = useRef(null);
@@ -67,15 +66,18 @@ const EditorPage = () => {
             theme: "dark",
           });
           // console.log(`${username} joined`);
-          
+
         }
-        setClients(clients);
+       
+        // console.log(clients);
         console.log("debug1");
 
         socketRef.current.emit(ACTIONS.SYNC_CODE, {
           code: codeRef.current,
           socketId,
         });
+
+        setClients(clients);
       });
 
       //disconnection
@@ -97,11 +99,10 @@ const EditorPage = () => {
     };
     init();
     return () => {
-      // socketRef.current.disconnect();
+
       socketRef.current.off(ACTIONS.JOINED);
       socketRef.current.off(ACTIONS.DISCONNECTED);
-      // socketRef.current.off(ACTIONS.SYNC_CODE);
-      // socketRef.current.off(ACTIONS.JOIN);
+      socketRef.current.disconnect();
     }
   }, []);
 
@@ -109,7 +110,7 @@ const EditorPage = () => {
 
   console.log("debug2");///////////////////////////////////////////////////
 
-  //to copy room id in clipboard
+  // //to copy room id in clipboard
   const copyId = async () => {
     try {
       await navigator.clipboard.writeText(editorId);
@@ -156,6 +157,36 @@ const EditorPage = () => {
 
 
   console.log("main page");///////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   return (
     <>
