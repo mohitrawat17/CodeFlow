@@ -1,4 +1,3 @@
-// const { log } = require('console');
 const express = require('express')
 const app = express()
 
@@ -8,7 +7,7 @@ const server = http.createServer(app);
 const { Server } = require('socket.io');
 const ACTIONS = require('./src/Actions')
 const io = new Server(server)
-const userSocketMap = {}
+const userSocketMap = {};
 
 
 function getAllConnectedClients(editorId) {
@@ -57,7 +56,7 @@ io.on('connection', (socket) => {
     //syncing code for the new user
     socket.on(ACTIONS.SYNC_CODE, ({ socketId, code }) => {
         io.to(socketId).emit(ACTIONS.CODE_CHANGE, { code });
-    })
+    });
 
 
 
@@ -73,7 +72,7 @@ io.on('connection', (socket) => {
         socket.leave();
     });
 
-})
+});
 // starting server
 const PORT = process.env.PORT || 3500;
 server.listen(PORT, () => console.log(`listening on ${PORT}`));

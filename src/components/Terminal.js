@@ -29,12 +29,9 @@ const Terminal = ({pycode}) => {
 
 
 
-
-
-
   return (
     <div className='outputSpace'>
-      
+      dsfdsfhjsfd
     </div>
   )
 }

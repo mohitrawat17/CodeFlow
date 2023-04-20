@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from 'react'
 import { useState } from 'react'
 import '../../src/editor.css'
 import Client from '../components/Client'
-import Bot from '../components/Bot'
 import Terminal from '../components/Terminal'
 import MainEditor from '../components/MainEditor'
 import { initSocket } from '../components/socket.js'
@@ -12,9 +11,7 @@ import { toast } from 'react-toastify'
 
 const EditorPage = () => {
   console.log("start");///////////////////////////////////////////
-  const [clients, setClients] = useState([
-
-  ])
+  const [clients, setClients] = useState([  ])
   const reactNavigator = useNavigate();
   const socketRef = useRef(null);
   const codeRef = useRef(null);
@@ -65,10 +62,10 @@ const EditorPage = () => {
             progress: undefined,
             theme: "dark",
           });
-          // console.log(`${username} joined`);
+        
 
         }
-       
+
         // console.log(clients);
         console.log("debug1");
 
@@ -76,7 +73,6 @@ const EditorPage = () => {
           code: codeRef.current,
           socketId,
         });
-
         setClients(clients);
       });
 
@@ -229,22 +225,12 @@ const EditorPage = () => {
 
 
         <div className='right_wrapper'>
-          <div className='editorSpace'>
-            <MainEditor socketRef={socketRef} editorId={editorId} codeChange={(code) => {
-              codeRef.current = code;
-            }} />
 
-            <Terminal pycode={codeRef.current} />
+          <MainEditor socketRef={socketRef} editorId={editorId} codeChange={(code) => {
+            codeRef.current = code;
+          }} />
 
-
-          </div>
-
-
-          <div className='botSpace'>
-            <Bot />
-
-          </div>
-
+          <Terminal pycode={codeRef.current} />
 
         </div>
 
