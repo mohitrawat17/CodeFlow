@@ -11,7 +11,7 @@ import { toast } from 'react-toastify'
 
 const EditorPage = () => {
   console.log("start");///////////////////////////////////////////
-  const [clients, setClients] = useState([  ])
+  const [clients, setClients] = useState([])
   const reactNavigator = useNavigate();
   const socketRef = useRef(null);
   const codeRef = useRef(null);
@@ -68,12 +68,12 @@ const EditorPage = () => {
 
         // console.log(clients);
         console.log("debug1");
-
+        setClients(clients);
         socketRef.current.emit(ACTIONS.SYNC_CODE, {
           code: codeRef.current,
           socketId,
         });
-        setClients(clients);
+       
       });
 
       //disconnection
@@ -89,7 +89,7 @@ const EditorPage = () => {
           theme: "dark",
         });
         setClients((prev) => {
-          return prev.filter((c) => c.socketId !== socketId);
+          return prev.filter((client) => client.socketId !== socketId);
         });
       });
     };
@@ -99,7 +99,7 @@ const EditorPage = () => {
       socketRef.current.off(ACTIONS.JOINED);
       socketRef.current.off(ACTIONS.DISCONNECTED);
       socketRef.current.disconnect();
-    }
+    };
   }, []);
 
 
