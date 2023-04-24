@@ -15,13 +15,8 @@ import {
 import { toast } from "react-toastify";
 
 const EditorPage = () => {
-<<<<<<< HEAD
-  console.log("start");///////////////////////////////////////////
-  const [clients, setClients] = useState([])
-=======
-  console.log("start");
+  // console.log("start");
   const [clients, setClients] = useState([]);
->>>>>>> 3f9a0fc64697171c7e54a45c3f3d5034370e6d5b
   const reactNavigator = useNavigate();
   const socketRef = useRef(null);
   const codeRef = useRef(null);
@@ -29,113 +24,17 @@ const EditorPage = () => {
   const { editorId } = useParams();
   const [code, setCode] = useState("");
   const [sendToTerminal, setSendToTerminal] = useState(false);
-
   const handleSendToTerminal = () => {
-    setSendToTerminal(true);
+    setSendToTerminal(!sendToTerminal);
   };
+
   const init = async () => {
     socketRef.current = await initSocket();
     socketRef.current.on("connect_error", (err) => handleErrors(err));
     socketRef.current.on("connect_failed", (err) => handleErrors(err));
-
-<<<<<<< HEAD
-  useEffect(() => {
-    const init = async () => {
-      socketRef.current = await initSocket();
-
-      socketRef.current.on('connect_error', (err) => handleErrors(err));
-      socketRef.current.on('connect_failed', (err) => handleErrors(err));
-
-      function handleErrors(e) {
-        console.log('socket error', e);
-        toast.error('socket connection failed,try again later !', {
-          position: "top-right",
-          autoClose: 1500,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-        });
-        reactNavigator('/');
-      }
-
-
-      socketRef.current.emit(ACTIONS.JOIN, {
-        editorId,
-        username: location.state?.userName,
-
-      });
-
-
-      // joining event listen
-      socketRef.current.on(ACTIONS.JOINED, ({ clients, username, socketId }) => {
-        if (username !== location.state?.userName) {
-          toast.success(`${username} joined`, {
-            position: "top-right",
-            autoClose: 1500,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "dark",
-          });
-        
-
-        }
-
-        // console.log(clients);
-        console.log("debug1");
-        setClients(clients);
-        socketRef.current.emit(ACTIONS.SYNC_CODE, {
-          code: codeRef.current,
-          socketId,
-        });
-       
-      });
-
-      //disconnection
-      socketRef.current.on(ACTIONS.DISCONNECTED, ({ socketId, username }) => {
-        toast.warn(`${username} left.`, {
-          position: "top-right",
-          autoClose: 1500,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-        });
-        setClients((prev) => {
-          return prev.filter((client) => client.socketId !== socketId);
-        });
-      });
-    };
-    init();
-    return () => {
-
-      socketRef.current.off(ACTIONS.JOINED);
-      socketRef.current.off(ACTIONS.DISCONNECTED);
-      socketRef.current.disconnect();
-    };
-  }, []);
-
-
-
-  console.log("debug2");///////////////////////////////////////////////////
-
-  // //to copy room id in clipboard
-  const copyId = async () => {
-    try {
-      await navigator.clipboard.writeText(editorId);
-      toast.success('Room id has been copied', {
-=======
     function handleErrors(e) {
       console.log("socket error", e);
       toast.error("socket connection failed,try again later !", {
->>>>>>> 3f9a0fc64697171c7e54a45c3f3d5034370e6d5b
         position: "top-right",
         autoClose: 1500,
         hideProgressBar: false,
@@ -147,12 +46,10 @@ const EditorPage = () => {
       });
       reactNavigator("/");
     }
-
     socketRef.current.emit(ACTIONS.JOIN, {
       editorId,
       username: location.state?.userName,
     });
-
     // joining event listen
     socketRef.current.on(ACTIONS.JOINED, ({ clients, username, socketId }) => {
       if (username !== location.state?.userName) {
@@ -167,6 +64,8 @@ const EditorPage = () => {
           theme: "dark",
         });
       }
+
+      //auto sync on first load
       socketRef.current.emit(ACTIONS.SYNC_CODE, {
         code: codeRef.current,
         socketId,
@@ -191,7 +90,6 @@ const EditorPage = () => {
       });
     });
   };
-
   useEffect(() => {
     init();
     return () => {
@@ -200,7 +98,6 @@ const EditorPage = () => {
       socketRef.current.disconnect();
     };
   }, []);
-
   const copyId = async () => {
     try {
       await navigator.clipboard.writeText(editorId);
@@ -236,7 +133,8 @@ const EditorPage = () => {
   if (!location.state) {
     return <Navigate to="/" />;
   }
-  console.log("End");
+  // console.log("End");
+
   return (
     <>
       <div className="wrapper">
@@ -270,13 +168,22 @@ const EditorPage = () => {
             socketRef={socketRef}
             editorId={editorId}
             codeChange={(code) => {
+              codeRef.current = code;
+              // setCode(code);
+            }}
+            codeChangeSet={(code) => {
               setCode(code);
             }}
           />
-          <button className="btn" onClick={handleSendToTerminal}>
-            Send to Terminal
+          <button className="runBtn" onClick={handleSendToTerminal}>
+            Run code
           </button>
-          {sendToTerminal && <Terminal pycode={code} sendToTerminal= {sendToTerminal} />}
+          {sendToTerminal && (
+            <Terminal
+              pycode={code}
+              handleSendToTerminal={handleSendToTerminal}
+            />
+          )}
         </div>
       </div>
     </>

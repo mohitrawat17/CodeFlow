@@ -9,7 +9,7 @@ import 'codemirror/mode/python/python'
 
 
 
-const MainEditor = ({ socketRef, editorId, codeChange }) => {
+const MainEditor = ({ socketRef, editorId, codeChange, codeChangeSet }) => {
   const editorRef = useRef(null);
 
   useEffect(() => {
@@ -32,6 +32,7 @@ const MainEditor = ({ socketRef, editorId, codeChange }) => {
         const { origin } = changes;
         const code = instance.getValue(); //to get text in editor
         codeChange(code);
+        codeChangeSet(code);
         // console.log(code);
            
         if (origin !== 'setValue') {
@@ -68,7 +69,7 @@ const MainEditor = ({ socketRef, editorId, codeChange }) => {
 
   }, [socketRef.current])
 
-  console.log("main editor");
+  // console.log("main editor");
 
   return <textarea id='cpp'></textarea>
 }
