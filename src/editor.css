@@ -16,6 +16,13 @@
   flex:1;
 }
 
+.left_inner h4{
+  color:#34a25e;
+  letter-spacing: 0.8px;
+  font-size: 18px;
+  margin-left: 20px;
+}
+
 
 .clients{
   display: flex;
@@ -53,9 +60,19 @@ font-weight: 550;
     font-size: 22px;
     font-weight:400;
     letter-spacing: 1px;
-    color: rgb(34, 62, 106);
-    -webkit-text-fill-color:#008000 ;
+    color:#937150;
+    -webkit-text-fill-color:#e3c850 ;
     -webkit-text-stroke-width: 0.7px;
+
+
+
+    /* margin: 5px 0 0 5px;
+    font-size: 30px;
+    font-weight:500;
+    letter-spacing: 1.2px;
+    color:#937150;
+    -webkit-text-fill-color:#e3c850 ;
+    -webkit-text-stroke-width: 0.5px; */
   }
 
   .left_outer{
@@ -72,6 +89,8 @@ font-weight: 550;
 width: 120px;
 font-size: 13px;
 letter-spacing: 0.7px;
+font-family: 'PT Sans Caption', sans-serif;
+color: aliceblue;
 
  }
 
@@ -84,6 +103,8 @@ letter-spacing: 0.7px;
     background-color: rgb(141, 46, 33);
     width: 120px;
     margin-top: 14px;
+    font-family: 'PT Sans Caption', sans-serif;
+    color: aliceblue
   }
   .leavebtn:hover{
     background-color:rgb(219, 76, 76);

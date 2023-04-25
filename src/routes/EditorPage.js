@@ -141,11 +141,10 @@ const EditorPage = () => {
         <div className="left_wrapper">
           <div className="left_inner">
             <div className="logo">
-              <img src="/code.png" alt="code flow" />
               <h1 className="codeflow">Code Flow</h1>
             </div>
 
-            <h4>Connected Users</h4>
+            <h4>Active Users</h4>
 
             <div className="clients">
               {clients.map((client) => (

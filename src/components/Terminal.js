@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 const Terminal = ({ pycode,handleSendToTerminal }) => {
-  console.log(pycode);
+  // console.log(pycode);
 
   const [output, setOutput] = useState(null);
 
@@ -31,7 +31,7 @@ const Terminal = ({ pycode,handleSendToTerminal }) => {
         .then(function (response) {
           console.log(response.data.output);
           setOutput(response.data.output);
-          handleSendToTerminal();
+          // handleSendToTerminal();
 
         })
         .catch(function (error) {
@@ -53,3 +53,5 @@ const Terminal = ({ pycode,handleSendToTerminal }) => {
 };
 
 export default Terminal;
+
+

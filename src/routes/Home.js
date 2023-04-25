@@ -95,17 +95,27 @@ window.addEventListener('DOMContentLoaded',()=>{
                 <div className='form'>
                     <div >
                         <div className='logo'>
-                            <img src="code.png" alt="code flow" />
-                            <h1 className='codeflow'>Code Flow</h1>
+                            <img src="code.png" className="code_flow" />
+                            <h1 className='code'>Code Flow</h1>
+
+
+                            
                         </div>
                         {/* <h4 className='ide'>A real time IDE</h4> */}
                     </div>
-                    <h4 className='msg'>Paste invitation ID</h4>
+                    <img src='pngegg.png' className='avaLogo'></img>
+                    {/* <h4 className='msg'>Paste invitation ID</h4> */}
                     {/* <div id='divSvg' style={{width:"100px",height:"100px"}}></div> */}
                     <div className='inputs'>
+                    <div className='inp1'>
+                    <i className="fas fa-user"></i>
                         <input type="text" placeholder='USER NAME' value={userName} onChange={(e)=>setuserName(e.target.value)} className='inpBox' id='textt' onKeyUp={joinOnEnter} />
+                        </div>
+                        <div className='inp2'>
+                        <i className="fas fa-lock"></i>
                         <input type="text" placeholder='ID' value={userid} onChange={(e)=>setuserid(e.target.value)} className='inpBox' onKeyUp={joinOnEnter} />
-                        <button className='btn joinBtn' onClick={join}>Join</button>
+                        </div>
+                        <button className='btn joinBtn' onClick={join}>Login</button>
                         <span className='info' >
                             If you don't have an invite then create&nbsp;<a href="" className='newRoom' onClick={randomId}> New</a>
                         </span>
