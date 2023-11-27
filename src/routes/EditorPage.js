@@ -25,7 +25,7 @@ const EditorPage = () => {
   const [code, setCode] = useState("");
   const [sendToTerminal, setSendToTerminal] = useState(false);
   const handleSendToTerminal = () => {
-    setSendToTerminal(!sendToTerminal);
+    setSendToTerminal(true);
   };
 
   const init = async () => {
@@ -172,6 +172,7 @@ const EditorPage = () => {
             }}
             codeChangeSet={(code) => {
               setCode(code);
+              setSendToTerminal(false)
             }}
           />
           <button className="runBtn" onClick={handleSendToTerminal}>

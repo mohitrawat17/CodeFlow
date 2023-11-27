@@ -44,11 +44,15 @@ const Terminal = ({ pycode,handleSendToTerminal }) => {
   
   useEffect(() => {
     runCode(pycode);
-  }, [pycode]);
+  }, []);
 
   return <>
-    <div className="outputSpace">{output}</div>
-    {/* <div>{handleSendToTerminal()}</div> */}
+    {
+      !output?
+      <div style={{paddingLeft:"20px"}}>Loading please wait ....</div>
+      :
+      <div className="outputSpace">{output}</div>
+    }
   </>
 };
 
