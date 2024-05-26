@@ -13,6 +13,9 @@ import {
   useParams,
 } from "react-router-dom";
 import { toast } from "react-toastify";
+import MainTerminal from "./MainTerminal.jsx";
+import codemirror from "codemirror";
+import AskQuesn from "./AskQuesn.jsx";
 
 const EditorPage = () => {
   // console.log("start");
@@ -22,11 +25,7 @@ const EditorPage = () => {
   const codeRef = useRef(null);
   const location = useLocation();
   const { editorId } = useParams();
-  const [code, setCode] = useState("");
-  const [sendToTerminal, setSendToTerminal] = useState(false);
-  const handleSendToTerminal = () => {
-    setSendToTerminal(true);
-  };
+  const [isTerminal, setIsTerminal] = useState(true)
 
   const init = async () => {
     socketRef.current = await initSocket();
@@ -133,7 +132,7 @@ const EditorPage = () => {
   if (!location.state) {
     return <Navigate to="/" />;
   }
-  // console.log("End");
+
 
   return (
     <>
@@ -162,29 +161,16 @@ const EditorPage = () => {
           </div>
         </div>
 
-        <div className="right_wrapper">
-          <MainEditor
+        {isTerminal ? (
+          <MainTerminal
+          setIsTerminal={setIsTerminal}
             socketRef={socketRef}
             editorId={editorId}
-            codeChange={(code) => {
-              codeRef.current = code;
-              // setCode(code);
-            }}
-            codeChangeSet={(code) => {
-              setCode(code);
-              setSendToTerminal(false)
-            }}
+            codeRef={codeRef}
           />
-          <button className="runBtn" onClick={handleSendToTerminal}>
-            Run code
-          </button>
-          {sendToTerminal && (
-            <Terminal
-              pycode={code}
-              handleSendToTerminal={handleSendToTerminal}
-            />
-          )}
-        </div>
+        ) : (
+          <AskQuesn setIsTerminal={setIsTerminal}/>
+        )}
       </div>
     </>
   );

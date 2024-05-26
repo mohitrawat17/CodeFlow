@@ -29,7 +29,7 @@ const Terminal = ({ pycode,handleSendToTerminal }) => {
       axios
         .request(options)
         .then(function (response) {
-          console.log(response.data.output);
+          console.log(response.data);
           setOutput(response.data.output);
           // handleSendToTerminal();
 
@@ -51,7 +51,8 @@ const Terminal = ({ pycode,handleSendToTerminal }) => {
       !output?
       <div style={{paddingLeft:"20px"}}>Loading please wait ....</div>
       :
-      <div className="outputSpace">{output}</div>
+      <div className="right_wrapper" style={{paddingBottom:"40px",paddingRight:"20px"}} dangerouslySetInnerHTML={{ __html: output.replace(/\n/g, '<br>') }} />
+
     }
   </>
 };

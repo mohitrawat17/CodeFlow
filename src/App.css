@@ -1,4 +1,37 @@
 @import url('https://fonts.googleapis.com/css2?family=PT+Sans+Caption:wght@700&display=swap');
+
+/* Scrollbar styling for webkit browsers (Chrome, Safari) */
+::-webkit-scrollbar {
+  width: 12px; /* Width of the scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background: #F0F8FF; /* Background of the track */
+  border-radius: 10px; /* Rounded corners of the track */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ADD8E6; /* Color of the scrollbar thumb */
+  border-radius: 10px; /* Rounded corners of the thumb */
+  border: 3px solid #F0F8FF; /* Adds space around the thumb */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #007BFF; /* Color of the thumb when hovered */
+}
+
+/* Scrollbar styling for Firefox */
+html {
+  scrollbar-width: thin; /* Thin scrollbar */
+  scrollbar-color: #ADD8E6 #F0F8FF; /* thumb color track color */
+}
+
+/* Scrollbar styling for Internet Explorer and Edge */
+.scroll-container {
+  -ms-overflow-style: -ms-autohiding-scrollbar; /* Auto-hiding scrollbar */
+}
+
+
 .homePgWrap{
   height: 100vh;
   display: flex;
@@ -182,3 +215,75 @@ font-family: 'PT Sans Caption', sans-serif;
 }
 
 
+/* ask question module */
+.questionContainer{
+  padding: 10px;
+  height: 97%;
+display: flex;
+gap: 20px;
+flex-direction: column;
+/* justify-content: center; */
+align-items: center;
+
+}
+
+.questionContainer textarea:first-child{
+  min-width: 98%;
+max-width: 98%;
+height: 40%;  
+background-color: #be90ee78;
+padding: 20px;
+font-size: 20px;
+color: #eddddd; /* Dark Gray */
+border: 2px solid #434849; /* Light Blue */
+border-radius: 10px; /* Rounded corners */
+font-family: 'PT Sans Caption', sans-serif;
+letter-spacing: 0.5px;
+font-size: 16px; /* Font size */
+box-sizing: border-box; /* Include padding and border in the element's total width and height */
+box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+outline: none;
+resize: none;
+}
+
+
+.questionContainer textarea:first-child::placeholder{
+  font-weight: bold;
+  letter-spacing: 1px;
+  font-size: 20px;
+  font-family: 'PT Sans Caption', sans-serif;
+  padding-left: 5px;
+
+}
+
+.questionContainer textarea:last-child{
+  min-width: 98%;
+max-width: 98%;
+height: 50%;
+background-color: #be90ee78;
+padding: 20px;
+font-size: 20px;
+color: #f6e8e8; /* Dark Gray */
+font-family: 'PT Sans Caption', sans-serif;
+font-size: 16px; /* Font size */
+box-sizing: border-box; /* Include padding and border in the element's total width and height */
+outline: none;
+}
+
+
+.geminiButton{
+  width: 95%;
+    display: flex;
+    justify-content:space-between;
+}
+
+.geminiButton>button{
+margin-left: 0 !important;
+
+}
+
+
+.terminalOutputBtn{
+  display: flex;
+  gap: 20px;
+}
