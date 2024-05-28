@@ -51,7 +51,12 @@ const Terminal = ({ pycode,handleSendToTerminal }) => {
       !output?
       <div style={{paddingLeft:"20px"}}>Loading please wait ....</div>
       :
-      <div className="right_wrapper" style={{paddingBottom:"40px",paddingRight:"20px"}} dangerouslySetInnerHTML={{ __html: output.replace(/\n/g, '<br>') }} />
+      <div className="right_wrapper" 
+     style={{paddingBottom:"40px",paddingRight:"20px",paddingLeft:"20px"}} 
+     dangerouslySetInnerHTML={{ 
+         __html: output.split('\n').map(line => `>>  ${line}`).join('<br>') 
+     }} 
+/>
 
     }
   </>

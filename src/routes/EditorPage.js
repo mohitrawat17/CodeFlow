@@ -20,6 +20,8 @@ import AskQuesn from "./AskQuesn.jsx";
 const EditorPage = () => {
   // console.log("start");
   const [clients, setClients] = useState([]);
+  const [code, setCode] = useState("");
+
   const reactNavigator = useNavigate();
   const socketRef = useRef(null);
   const codeRef = useRef(null);
@@ -134,6 +136,8 @@ const EditorPage = () => {
   }
 
 
+
+
   return (
     <>
       <div className="wrapper">
@@ -163,10 +167,13 @@ const EditorPage = () => {
 
         {isTerminal ? (
           <MainTerminal
+          isTerminal={isTerminal}
           setIsTerminal={setIsTerminal}
             socketRef={socketRef}
             editorId={editorId}
             codeRef={codeRef}
+            code={code}
+            setCode={setCode}
           />
         ) : (
           <AskQuesn setIsTerminal={setIsTerminal}/>

@@ -284,6 +284,8 @@ margin-left: 0 !important;
 
 
 .terminalOutputBtn{
+  margin-right: 20px;
   display: flex;
+  flex-direction: column-reverse;
   gap: 20px;
 }
